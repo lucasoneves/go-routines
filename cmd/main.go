@@ -3,13 +3,14 @@ package main
 import (
 	"buscador/internal/fetcher"
 	"buscador/internal/processor"
+	"buscador/models"
 	"fmt"
 	"time"
 )
 
 func main() {
 	start := time.Now()
-	priceChannel := make(chan float64)
+	priceChannel := make(chan models.ProductDetail)
 	done := make(chan bool)
 
 	go fetcher.FetchPrices(priceChannel)
