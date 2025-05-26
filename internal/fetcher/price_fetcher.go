@@ -44,3 +44,16 @@ func FetchPrice3() float64 {
 	time.Sleep(5 * time.Second)
 	return rand.Float64() * 100
 }
+
+func FetchFromMultipleSite(priceChannel chan<- float64) {
+	prices := []float64{
+		rand.Float64() * 100,
+		rand.Float64() * 100,
+		rand.Float64() * 100,
+	}
+
+	for _, price := range prices {
+		priceChannel <- price
+	}
+
+}

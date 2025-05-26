@@ -2,7 +2,7 @@ package processor
 
 import "fmt"
 
-func ShowPriceAverage(priceChannel chan float64) {
+func ShowPriceAverage(priceChannel <-chan float64, done chan<- bool) {
 	var totalPrice float64
 	countPrices := 0
 	for price := range priceChannel {
@@ -11,4 +11,5 @@ func ShowPriceAverage(priceChannel chan float64) {
 		averagePrice := totalPrice / float64(countPrices)
 		fmt.Printf("Preço recebido: R$ %.2f | Preço médio: R$ %.2f\n", price, averagePrice)
 	}
+	done <- true
 }
