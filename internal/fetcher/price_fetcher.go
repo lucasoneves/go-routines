@@ -9,7 +9,7 @@ import (
 func FetchPrices(priceChannel chan<- float64) {
 
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(4)
 
 	go func() {
 		defer wg.Done()
@@ -24,6 +24,11 @@ func FetchPrices(priceChannel chan<- float64) {
 	go func() {
 		defer wg.Done()
 		priceChannel <- FetchPrice3()
+	}()
+
+	go func() {
+		defer wg.Done()
+		FetchFromMultipleSite(priceChannel)
 	}()
 
 	wg.Wait()
@@ -46,6 +51,7 @@ func FetchPrice3() float64 {
 }
 
 func FetchFromMultipleSite(priceChannel chan<- float64) {
+	time.Sleep(2 * time.Second)
 	prices := []float64{
 		rand.Float64() * 100,
 		rand.Float64() * 100,
